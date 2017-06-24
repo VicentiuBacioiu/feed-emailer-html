@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -48,6 +49,8 @@ namespace RSSFeedEmail
 
                 var feedContent = item.ElementExtensions.ReadElementExtensions<string>("encoded", "http://purl.org/rss/1.0/modules/content/").FirstOrDefault();
 
+                feedContent = ProcessImages(feedContent);
+
                 feedItems.Add(new FeedItem
                     {
                         Title = item.Title.Text,
@@ -56,6 +59,21 @@ namespace RSSFeedEmail
             }
 
             return feedItems;
+        }
+
+        static string ProcessImages(string feedContent)
+        {
+            var imgRegEx = @"<img[^>]*src=""([^""]*)""";
+            var regEx = new Regex(imgRegEx);
+            var matches = regEx.Matches(feedContent);
+           
+            var images = matches.Cast<Match>().Select(match => match.Success ? match.Groups[1].Value : null).Where(img => img != null);
+
+            foreach(var image in images){
+                feedContent = feedContent.Replace(image, ImageProcessor.ConvertImageToBase64(image));
+            }
+
+            return feedContent;
         }
 
         static void SendFeedToRecipient(FeedItem feed)

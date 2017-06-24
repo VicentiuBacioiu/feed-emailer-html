@@ -1,11 +1,11 @@
 ﻿{  
-   "Server": "mail.server.com",
+   "Server": "mail.example.com",
    "Port": 587,
    "UseSSL": true,
    "User": "username",
-   "Password": "pwd",
-   "ToAddress": "myAddress@kindle.com",
-   "FromAddress": "Feed System <feeds@server.com>",
+   "Password": "password",
+   "ToAddress": "george@kindle.com",
+   "FromAddress": "Feed System <username@gmail.com>",
    "SendAsAttachment": true,
    "NewerThanHours": 24,
    "Feeds": [

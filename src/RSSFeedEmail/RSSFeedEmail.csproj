@@ -52,6 +52,7 @@
     <Compile Include="EmailHelper.cs" />
     <Compile Include="FeedItem.cs" />
     <Compile Include="FeedManager.cs" />
+    <Compile Include="ImageProcessor.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
