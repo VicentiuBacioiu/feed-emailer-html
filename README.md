@@ -1,1 +1,1 @@
-# feed-emailer-html
+# kindle-article-subscriber
