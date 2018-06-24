@@ -33,13 +33,11 @@ namespace RSSFeedEmail
         {
             List<FeedItem> feedItems = new List<FeedItem>();
 
-            XmlReader reader = XmlReader.Create(feedURL);
-            SyndicationFeed feed = SyndicationFeed.Load(reader);
-            reader.Close();
+            SyndicationFeed feed = DownloadFeed(feedURL);
 
             foreach (SyndicationItem item in feed.Items)
             {
-                var date = item.PublishDate;
+                DateTimeOffset date = GetFeedDate(item);
 
                 //check if item is older than the specified period
                 if ((DateTime.Now - date).TotalMinutes > config.NewerThanMinutes)
@@ -47,18 +45,86 @@ namespace RSSFeedEmail
                     break;
                 }
 
-                var feedContent = item.ElementExtensions.ReadElementExtensions<string>("encoded", "http://purl.org/rss/1.0/modules/content/").FirstOrDefault();
-
-                feedContent = ProcessImages(feedContent);
+                string feedContent = ExtractContent(item);
+                if (feedContent == null)
+                {
+                    continue;
+                }
 
                 feedItems.Add(new FeedItem
                     {
                         Title = item.Title.Text,
-                        Content = string.IsNullOrEmpty(feedContent) ? item.Summary.Text : feedContent
+                        Content = feedContent
                     });
             }
 
             return feedItems;
+        }
+
+        private static SyndicationFeed DownloadFeed(string feedURL)
+        {
+            try
+            {
+                XmlReader reader = XmlReader.Create(feedURL);
+                SyndicationFeed feed = SyndicationFeed.Load(reader);
+                reader.Close();
+                return feed;
+            }
+            catch (WebException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                return new SyndicationFeed();
+            }
+        }
+
+        private static DateTimeOffset GetFeedDate(SyndicationItem item)
+        {
+            try
+            {
+                var date = item.PublishDate;
+                if (date == DateTimeOffset.MinValue)
+                {
+                    date = item.ElementExtensions.ReadElementExtensions<DateTime>("date", "http://purl.org/dc/elements/1.1/").FirstOrDefault();
+                }
+                return date;
+            }
+            catch
+            {
+                return DateTimeOffset.MinValue;
+            }
+        }
+
+        private static string ExtractContent(SyndicationItem item)
+        {
+            try
+            {
+                string feedContent = item.ElementExtensions.ReadElementExtensions<string>("encoded", "http://purl.org/rss/1.0/modules/content/").FirstOrDefault();
+
+                if (item.Content != null)
+                {
+                    feedContent = (item.Content as TextSyndicationContent).Text;
+                }
+                else if (item.Summary != null)
+                {
+                    feedContent = item.Summary.Text;
+                }
+
+                if (string.IsNullOrEmpty(feedContent))
+                {
+                    return null;
+                }
+
+                feedContent = ProcessUnsupportedCharacters(feedContent);
+                feedContent = ProcessImages(feedContent);
+                return feedContent;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         static string ProcessImages(string feedContent)
@@ -66,14 +132,23 @@ namespace RSSFeedEmail
             var imgRegEx = @"<img[^>]*src=""([^""]*)""";
             var regEx = new Regex(imgRegEx);
             var matches = regEx.Matches(feedContent);
-           
+
             var images = matches.Cast<Match>().Select(match => match.Success ? match.Groups[1].Value : null).Where(img => img != null);
 
-            foreach(var image in images){
+            foreach (var image in images)
+            {
                 feedContent = feedContent.Replace(image, ImageProcessor.ConvertImageToBase64(image));
             }
 
             return feedContent;
+        }
+
+        static string ProcessUnsupportedCharacters(string feedContent)
+        {
+            var unsupportedRegEx = @"&#x[^;]+;";
+            var regEx = new Regex(unsupportedRegEx);
+
+            return regEx.Replace(feedContent, string.Empty);
         }
 
         static void SendFeedToRecipient(FeedItem feed)

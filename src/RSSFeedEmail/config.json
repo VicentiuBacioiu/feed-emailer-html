@@ -1,13 +1,13 @@
 ﻿{  
-   "Server": "mail.secusimple.com",
+   "Server": "mail.server.com",
    "Port": 587,
    "UseSSL": true,
-   "User": "support",
-   "Password": "support12",
-   "ToAddress": "vicentiu.bacioiu@gmail.com",
-   "FromAddress": "Feed System <support@secusimple.com>",
+   "User": "mailusername",
+   "Password": "password",
+   "ToAddress": "mykindleusername@kindle.com",
+   "FromAddress": "Feed System <sampleAddressOnServer@server.com>",
    "SendAsAttachment": true,
-   "NewerThanMinutes": 1,
+   "NewerThanMinutes": 1440,
    "Feeds": [
 		"https://css-tricks.com/feed/"
    ]

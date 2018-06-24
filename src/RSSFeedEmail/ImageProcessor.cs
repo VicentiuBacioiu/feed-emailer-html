@@ -11,9 +11,19 @@ namespace RSSFeedEmail
 {
     static class ImageProcessor
     {
+        static string[] IGNORED_IMAGES = new[] { ".svg" };
         const string B64_SRC = "data:image/png;base64,";
+        const string EMPTY_IMG = "data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
         public static string ConvertImageToBase64(string imageUrl)
         {
+            // ignore unsupported images
+            if (IGNORED_IMAGES.Any(img => imageUrl.EndsWith(img)))
+            {
+                return EMPTY_IMG;
+            }
+
+            // download image
             var imgBytes = DownloadImage(imageUrl);
             var b64Image = GetBase64(imgBytes);
             return string.Concat(B64_SRC, b64Image);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Timers;
 
 namespace RSSFeedEmail
@@ -23,7 +24,15 @@ namespace RSSFeedEmail
             if (lastRun == DateTime.MinValue || DateTime.Now - lastRun > scheduleTime)
             {
                 lastRun = DateTime.Now;
-                FeedManager.RunFeeds();
+                try
+                {
+                    FeedManager.RunFeeds();
+                }
+                catch (WebException)
+                {
+                    // reset lastRun to try again at the next timeout check
+                    lastRun = DateTime.MinValue;
+                }
             }
         }
     }
