@@ -20,7 +20,7 @@ namespace RSSFeedEmail
         public string FromAddress { get; set; }
         public bool SendAsAttachment { get; set; }
         public List<string> Feeds { get; set; }
-        public int NewerThanHours { get; set; }
+        public int NewerThanMinutes { get; set; }
 
         public static Settings GetSettings()
         {

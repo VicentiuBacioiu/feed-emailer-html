@@ -42,7 +42,7 @@ namespace RSSFeedEmail
                 var date = item.PublishDate;
 
                 //check if item is older than the specified period
-                if ((DateTime.Now - date).TotalMinutes > config.NewerThanHours * 60)
+                if ((DateTime.Now - date).TotalMinutes > config.NewerThanMinutes)
                 {
                     break;
                 }
@@ -87,7 +87,7 @@ namespace RSSFeedEmail
             {
                 body = string.Empty;
                 attachmentPath = Path.Combine(Path.GetTempPath(), GetSanitizedFileName(feed.Title) + ".html");
-                File.WriteAllText(attachmentPath, content);
+                File.WriteAllText(attachmentPath, content, Encoding.UTF8);
             }
             else
             {

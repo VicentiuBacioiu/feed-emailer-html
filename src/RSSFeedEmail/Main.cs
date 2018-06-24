@@ -19,8 +19,8 @@ namespace RSSFeedEmail
 
         private void Main_Load(object sender, EventArgs e)
         {
-            FeedManager.RunFeeds();
-            Application.Exit();
+            Settings config = Settings.GetSettings();
+            new Scheduler(config.NewerThanMinutes);
         }
     }
 }
