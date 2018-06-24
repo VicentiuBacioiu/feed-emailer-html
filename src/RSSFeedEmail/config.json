@@ -1,11 +1,11 @@
 ﻿{  
-   "Server": "mail.secusimple.com",
+   "Server": "",
    "Port": 587,
    "UseSSL": true,
-   "User": "support",
-   "Password": "support12",
-   "ToAddress": "vicentiu.bacioiu@gmail.com",
-   "FromAddress": "Feed System <support@secusimple.com>",
+   "User": "",
+   "Password": "",
+   "ToAddress": "",
+   "FromAddress": "",
    "SendAsAttachment": true,
    "NewerThanMinutes": 1,
    "Feeds": [
