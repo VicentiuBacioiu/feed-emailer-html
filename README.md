@@ -21,15 +21,15 @@ Download the Release package, unzip it, and open the config.json file using any 
 - NewerThanMinutes: Timeout period to check for new feeds. Only feeds newer than the specified period will be sent via email. Make sure you're using a number big enough to get feeds.
 - Feeds: A string array of RSS feed URLs.
 
-### Default Gmail settings
-Server: smtp.gmail.com
-Port: 465
-UseSSL: true
-User: yourusername@gmail.com
-
 **Run the program and wait.**  
 The first feeds will start coming after 30 seconds (if the published date is newer than the specified interval).  
 The next feeds will come after the specified interval has elapsed.
+
+### Default Gmail settings
+Server: smtp.gmail.com  
+Port: 465  
+UseSSL: true  
+User: yourusername@gmail.com
 
 ### Alternate Configuration - Regular Article via Email
 The program can be configured to deliver the article to any e-mail address, the content being readable on any device that supports HTML.
