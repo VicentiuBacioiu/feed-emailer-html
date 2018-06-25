@@ -10,7 +10,7 @@ Feeling uncomfortable using your Gmail credentials? You can create a new account
 
 ### Kindle Configuration
 Download the Release package, unzip it, and open the config.json file using any text editor. Below is each option explained:
-- Server: The SMTP email server. Example: mail.google.com
+- Server: The SMTP email server address.
 - Port: The email port, default 587
 - UseSSL: Set to **true** if you want to use a secure connection, otherwise **false**
 - User: The email account username
@@ -20,6 +20,12 @@ Download the Release package, unzip it, and open the config.json file using any 
 - SendAsAttachment: Must be true to work on Kindle
 - NewerThanMinutes: Timeout period to check for new feeds. Only feeds newer than the specified period will be sent via email. Make sure you're using a number big enough to get feeds.
 - Feeds: A string array of RSS feed URLs.
+
+### Default Gmail settings
+Server: smtp.gmail.com
+Port: 465
+UseSSL: true
+User: yourusername@gmail.com
 
 **Run the program and wait.**  
 The first feeds will start coming after 30 seconds (if the published date is newer than the specified interval).  
