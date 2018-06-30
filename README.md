@@ -35,6 +35,9 @@ User: yourusername@gmail.com
 The program can be configured to deliver the article to any e-mail address, the content being readable on any device that supports HTML.
 Follow the configuration above, but set the "SendAsAttachment" option to false.
 
+### Download
+Jump to releases and get the latest ZIP version: [Releases|https://github.com/VicentiuBacioiu/kindle-article-subscriber/releases/]
+
 ### Privacy
 Kindle Article Subscriber does NOT log any data, does not call home, check for updates or send/use configuration data to any service.  
 You can also take the source code and compile it yourself.
