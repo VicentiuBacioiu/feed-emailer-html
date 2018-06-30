@@ -15,7 +15,7 @@ Download the Release package, unzip it, and open the config.json file using any 
 - UseSSL: Set to **true** if you want to use a secure connection, otherwise **false**
 - User: The email account username
 - Password: The email account password
-- ToAddress: Your Kindle email address ([find it here|https://www.amazon.com/gp/help/customer/display.html?nodeId=201974240]) 
+- ToAddress: Your Kindle email address ([find it here](https://www.amazon.com/gp/help/customer/display.html?nodeId=201974240]))  
 - FromAddress: The email address for the sender field
 - SendAsAttachment: Must be true to work on Kindle
 - NewerThanMinutes: Timeout period to check for new feeds. Only feeds newer than the specified period will be sent via email. Make sure you're using a number big enough to get feeds.
@@ -36,7 +36,7 @@ The program can be configured to deliver the article to any e-mail address, the 
 Follow the configuration above, but set the "SendAsAttachment" option to false.
 
 ### Download
-Jump to releases and get the latest ZIP version: [Releases|https://github.com/VicentiuBacioiu/kindle-article-subscriber/releases/]
+Jump to releases and get the latest ZIP version: [Releases](https://github.com/VicentiuBacioiu/kindle-article-subscriber/releases/)  
 
 ### Privacy
 Kindle Article Subscriber does NOT log any data, does not call home, check for updates or send/use configuration data to any service.  
