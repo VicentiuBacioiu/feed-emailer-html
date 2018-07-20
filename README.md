@@ -24,7 +24,7 @@ Download the Release package, unzip it, and open the config.json file using any 
 **Run the program and wait.**  
 The first feeds will start coming after 30 seconds (if the published date is newer than the specified interval).  
 The next feeds will come after the specified interval has elapsed.  
-**Note:** The program does not have a visible interface. Instead it's running as a background process. To close it completely, use Task Manager.
+**Note:** The program does not have a visible interface. It's running as a background process instead. To close it completely, use Task Manager.
 
 ### Default Gmail settings
 Server: smtp.gmail.com  
